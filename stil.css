@@ -1,0 +1,107 @@
+.pozadina{
+    background-color:white;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}
+.img 
+{
+    background-color: transparent;
+    height: 90px;
+    width: 90px;
+    display:flex;
+    align-content: center;
+    flex-grow: 1;
+}
+.natpis 
+{
+    background-color: transparent;
+    font-size: large;
+    font-style: bold;
+    display:flex;
+    align-content: center;
+    flex-grow: 1;
+}
+.logo {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    height: 120px;
+    padding:1%;
+}
+.dimenzija60 {
+    height: 150px;
+    width: 350px;
+    background-color:lightgray;
+}
+.crveno {
+    background-color: red;
+}
+.matricasoba {
+    border-style: solid;
+    display: flex;
+    background-color: red;
+    flex-wrap: wrap;
+    align-content: space-between;   
+}
+.sobadugme {
+    width: 50px;
+    height: 40px;
+    margin: 5px;
+    border-style: solid;
+}
+.divSpratovi {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    justify-content: space-around;
+}
+.DivZaMatricuSoba {
+    display: flex;
+    flex-direction: row;
+}
+.dijagramSobe {
+    border-style: solid;
+    display: flex;
+    background-color: red;
+    flex-direction: column;
+}
+.dijagramPacijenta {
+    border-style: solid;
+    display: flex;
+    background-color: red;
+    height: 150px;
+    width: 300px;
+    flex-direction: column;
+}
+.divIme{
+    display: flex;
+}
+.divPrezime {
+    display: flex;
+}
+.divDijeta {
+    display: flex;
+    flex-grow: 2;
+}
+.divDijagnoza {
+    display: flex;
+}
+.krevetDugme {
+    display: flex;
+    height: 60px;
+    margin: 5px;
+    border-style: solid;
+    background-color:darkorange;
+}
+.prozorSaKrevetima {
+    display: flex;
+    background-color: red;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.zabrisanje {
+    flex-wrap: wrap;
+}
+
+    
