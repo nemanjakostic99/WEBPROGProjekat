@@ -23,6 +23,6 @@ bolnica.Spratovi[0][0].Kreveti[0].Pacijent = pacijent1;
 let prikaz = new BolnicaView(bolnica);
 
 prikaz.crtajBolnicu(document.body);
-prikaz.crtajBolnicu(document.body);
-prikaz.crtajBolnicu(document.body);
+//prikaz.crtajBolnicu(document.body);
+//prikaz.crtajBolnicu(document.body);
 

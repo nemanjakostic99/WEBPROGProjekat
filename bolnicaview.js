@@ -1,4 +1,5 @@
 import {Bolnica} from "./bolnica.js"
+import { Pacijent } from "./pacijent.js";
 
 export class BolnicaView {
     
@@ -7,6 +8,14 @@ export class BolnicaView {
     }
     crtajBolnicu(host){
         let brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje"));
+        for(let i; i<brisanje.length; i++)
+        brisanje[i].remove();
+        brisanje.map(function(el){
+           return el.remove();
+        });
+        brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje1"));
+        for(let i; i<brisanje.length; i++)
+        brisanje[i].remove();
         brisanje.map(function(el){
            return el.remove();
         });
@@ -47,9 +56,12 @@ export class BolnicaView {
        
         div1.className = "matricasoba";
         div1.classList.add("zabrisanje");
-        div1.style.height = ((this.hospital.BrojSpratova-1)*(50)+50)+"px";
-        div1.style.width = ((this.hospital.BrojSoba-1)*60+60)+"px";
-        for(let i=0; i<this.hospital.BrojSpratova; i++)
+        //div1.style.height = ((this.hospital.BrojSpratova-1)*(50)+50)+"px";
+        //div1.style.width = ((this.hospital.BrojSoba-1)*60+60)+"px";
+        for(let i=0; i<this.hospital.BrojSpratova; i++){
+            const sprat = document.createElement("div");
+            sprat.className = "sprat";
+
             for(let j=0; j<this.hospital.BrojSoba; j++){
                 let dugmeSoba = document.createElement("button");
                 dugmeSoba.className = "sobadugme";
@@ -63,14 +75,20 @@ export class BolnicaView {
                     this.crtajDijagramSobe(host, this.hospital.Spratovi[i][j], div1.style.width, i, j)
                 }
                 this.hospital.Spratovi[i][j].Dugme = dugmeSoba; //referenca na dugme
-                div1.appendChild(dugmeSoba);
-        }
+                sprat.appendChild(dugmeSoba);
+            }
+            div1.appendChild(sprat);
+
+
+    }
+
         matricaSoba.appendChild(divSpratovi);
         matricaSoba.appendChild(div1);
         host.appendChild(matricaSoba);
 
         let razmak = document.createElement("div");
         razmak.style.height = "15px";
+        razmak.classList.add("zabrisanje");
         host.appendChild(razmak);
     }
     crtajDijagramSobe(host, soba, width, brSprata, brSobe){
@@ -81,6 +99,10 @@ export class BolnicaView {
         if(brisanje.length !== 0)
         //if(brisanje !== null)
         brisanje[0].remove();
+
+        brisanje = document.getElementsByClassName("dijagramPacijenta");
+        if(brisanje.length !== 0)
+            brisanje[0].remove();
 
         const glavniProzor = document.createElement("div");
         glavniProzor.className = "dijagramSobe";
@@ -94,7 +116,9 @@ export class BolnicaView {
             dugmeKreveta.className = "krevetDugme";
             dugmeKreveta.style.fontWeight = "bold";
             dugmeKreveta.onclick=(ev)=>{
-                this.crtajDijagramPacijenta(host, soba.Kreveti[i].Pacijent);
+                if(soba.Kreveti[i].slobodan())
+                this.crtajDijagramNovogPacijenta(host, soba.Kreveti[i]);
+                else this.crtajDijagramPacijenta(host, soba.Kreveti[i]);
             }
             if(!soba.Kreveti[i].slobodan()){
                 dugmeKreveta.innerHTML = "Кревет " + (i+1) + ": " + soba.Kreveti[i].Pacijent.Ime + " " + soba.Kreveti[i].Pacijent.Prezime + "<br />" + "Дијета:" + soba.Kreveti[i].Pacijent.Dijeta + "<br />" + "Дијагноза:" + soba.Kreveti[i].Pacijent.Dijagnoza;
@@ -104,12 +128,16 @@ export class BolnicaView {
         host.appendChild(glavniProzor);
     }
     crtajDijagramPacijenta(host, pacijent){
+
         let brisanje = document.getElementsByClassName("dijagramPacijenta");
         if(brisanje.length !== 0)
             brisanje[0].remove();
 
+        brisanje = document.getElementsByClassName("zabrisanje1");
+        if(brisanje.length !== 0)
+            brisanje[0].remove();
         let razmak = document.createElement("div");
-        
+        razmak.classList.add("zabrisanje1");
         razmak.style.height = "15px";
         host.appendChild(razmak);
 
@@ -176,10 +204,135 @@ export class BolnicaView {
         dugmePotvrdi.innerHTML = "Потврди";
         dugmePotvrdi.style.backgroundColor = "lightgreen";
         dugmePotvrdi.onclick=(ev)=>{
+            if(!allLetter(unosImenaPacijenta.value))
+            {
+                alert("Име није валидно!");
+                return false;
+            }
+
+            pacijent.Pacijent.Ime = unosImenaPacijenta.value;
+
+            if(!allLetter(unosPrezimenaPacijenta.value))
+            {
+                alert("Презиме није валидно!");
+                return false;
+            }
+            pacijent.Pacijent.Prezime = unosPrezimenaPacijenta.value;
+            pacijent.Pacijent.Dijeta = unosDijetePacijenta.value;
+            pacijent.Pacijent.Dijagnoza = unosDijagnozePacijenta.value;;
+            this.crtajBolnicu(host);
+        }
+        glavniProzor.appendChild(dugmePotvrdi);
+
+        const dugmeOslobodi = document.createElement("button");
+        dugmeOslobodi.innerHTML = "Ослободи";
+        dugmeOslobodi.style.backgroundColor = "red";
+        dugmeOslobodi.onclick=(ev)=>{
+            pacijent.oslobodiKrevet();
+            this.crtajBolnicu(host);
+        }
+        glavniProzor.appendChild(dugmeOslobodi);
+        host.appendChild(glavniProzor);
+    }
+
+    crtajDijagramNovogPacijenta(host, krevet) {
+        let brisanje = document.getElementsByClassName("dijagramPacijenta");
+        if(brisanje.length !== 0)
+            brisanje[0].remove();
+
+        brisanje = document.getElementsByClassName("zabrisanje1");
+        if(brisanje.length !== 0)
+            brisanje[0].remove();
+        let razmak = document.createElement("div");
+        razmak.classList.add("zabrisanje1");
+        razmak.style.height = "15px";
+        host.appendChild(razmak);
+
+        const glavniProzor = document.createElement("div");
+        glavniProzor.classList.add("dijagramPacijenta");
+
+        const imeProzor = document.createElement("div");
+        imeProzor.className = "divIme";
+
+        const imePacijenta = document.createElement("div");
+        imePacijenta.innerHTML = "Име:";
+
+        const unosImenaPacijenta = document.createElement("input");
+        unosImenaPacijenta.type = "text";
+        unosImenaPacijenta.value = "";
+
+        imeProzor.appendChild(imePacijenta);
+        imeProzor.appendChild(unosImenaPacijenta);
+        glavniProzor.appendChild(imeProzor);
+
+        const prezimeProzor = document.createElement("div");
+        prezimeProzor.className = "divPrezime";
+
+        const prezimePacijenta = document.createElement("div");
+        prezimePacijenta.innerHTML = "Презиме:";
+
+        const unosPrezimenaPacijenta = document.createElement("input");
+        unosPrezimenaPacijenta.type = "text";
+        unosPrezimenaPacijenta.value = "";
+        
+        prezimeProzor.appendChild(prezimePacijenta);
+        prezimeProzor.appendChild(unosPrezimenaPacijenta);
+        glavniProzor.appendChild(prezimeProzor);
+
+        const dijetaProzor = document.createElement("div");
+        dijetaProzor.className = "divDijeta";
+
+        const dijetaPacijenta = document.createElement("div");
+        dijetaPacijenta.innerHTML = "Дијета:";
+
+        const unosDijetePacijenta = document.createElement("input");
+        unosDijetePacijenta.type = "text";
+        unosDijetePacijenta.value = "";
+        
+        dijetaProzor.appendChild(dijetaPacijenta);
+        dijetaProzor.appendChild(unosDijetePacijenta);
+        glavniProzor.appendChild(dijetaProzor);
+
+        const dijagnozaProzor = document.createElement("div");
+        dijagnozaProzor.className = "divDijagnoza";
+
+        const dijagnozaPacijenta = document.createElement("div");
+        dijagnozaPacijenta.innerHTML = "Дијагноза:";
+
+        const unosDijagnozePacijenta = document.createElement("input");
+        unosDijagnozePacijenta.type = "text";
+        unosDijagnozePacijenta.value = "";
+        
+        dijagnozaProzor.appendChild(dijagnozaPacijenta);
+        dijagnozaProzor.appendChild(unosDijagnozePacijenta);
+        glavniProzor.appendChild(dijagnozaProzor);
+
+        const dugmePotvrdi = document.createElement("button");
+        dugmePotvrdi.innerHTML = "Потврди";
+        dugmePotvrdi.style.backgroundColor = "lightgreen";
+        dugmePotvrdi.onclick=(ev)=>{
+            let pacijent = new Pacijent;
+
+            if(!allLetter(unosImenaPacijenta.value))
+            {
+                alert("Име није валидно!");
+                return false;
+            }
+
             pacijent.Ime = unosImenaPacijenta.value;
+
+            if(!allLetter(unosPrezimenaPacijenta.value))
+            {
+                alert("Презиме није валидно!");
+                return false;
+            }
+
             pacijent.Prezime = unosPrezimenaPacijenta.value;
             pacijent.Dijeta = unosDijetePacijenta.value;
-            pacijent.Dijagnoza = unosDijagnozePacijenta.value;;
+            pacijent.Dijagnoza = unosDijagnozePacijenta.value;
+
+            krevet.smestiUKrevet(pacijent);
+
             this.crtajBolnicu(host);
         }
         glavniProzor.appendChild(dugmePotvrdi);
@@ -189,3 +342,15 @@ export class BolnicaView {
 
 
 }
+function allLetter(inputtxt)
+  {
+   var letters = /^[A-Za-z]+$/;
+   if(letters.test(inputtxt))
+     {
+      return true;
+     }
+   else
+     {
+     return false;
+     }
+  }

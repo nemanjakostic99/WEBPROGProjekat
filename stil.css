@@ -3,6 +3,7 @@
     display:flex;
     align-items: center;
     flex-direction: column;
+    flex-grow: 1;
 }
 .img 
 {
@@ -40,39 +41,50 @@
 .matricasoba {
     border-style: solid;
     display: flex;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.699);
     flex-wrap: wrap;
-    align-content: space-between;   
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    flex-grow: 2;
 }
 .sobadugme {
-    width: 50px;
-    height: 40px;
+    
+    display: flex;
     margin: 5px;
     border-style: solid;
+    flex-grow: 1;
+    padding: 8px;
 }
 .divSpratovi {
     display: flex;
     flex-direction: column;
     margin: 5px;
     justify-content: space-around;
+    flex-grow: 1;
+
 }
 .DivZaMatricuSoba {
     display: flex;
+    height: auto;
+    width: auto;
     flex-direction: row;
+    flex-grow: 1;
+    justify-content: center;
 }
 .dijagramSobe {
     border-style: solid;
     display: flex;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.699);
     flex-direction: column;
 }
 .dijagramPacijenta {
     border-style: solid;
     display: flex;
-    background-color: red;
-    height: 150px;
-    width: 300px;
+    margin: 1px;
+    background-color: rgba(255, 0, 0, 0.699);
     flex-direction: column;
+    align-content: space-around;
 }
 .divIme{
     display: flex;
@@ -89,19 +101,26 @@
 }
 .krevetDugme {
     display: flex;
-    height: 60px;
     margin: 5px;
-    border-style: solid;
+    border: black;
+    border-style:dashed;
     background-color:darkorange;
 }
 .prozorSaKrevetima {
     display: flex;
-    background-color: red;
+    background-color:  rgba(255, 0, 0, 0.699);
     flex-wrap: wrap;
     align-content: space-between;
 }
 .zabrisanje {
     flex-wrap: wrap;
+}
+.zabrisanje1 {
+    flex-wrap: wrap;
+}
+.sprat {
+    display:flex;
+    flex-grow: 1;
 }
 
     
