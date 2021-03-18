@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ namespace server.Models
         [Column("BrojKrevetaPoSobi")]
         public int BrojKrevetaPoSobi { get; set; }
 
-        public virtual Soba[,] Spratovi { get; set; }
+        public virtual List<Soba> Spratovi { get; set; }
 
     }
 

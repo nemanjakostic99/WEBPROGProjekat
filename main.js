@@ -6,23 +6,35 @@ let razmak = document.createElement("div");
 razmak.style.height = "15px";
 document.body.appendChild(razmak);
 
-let pacijent1 = new Pacijent("Nemanja", "Kostic", "A", "Slepo crevo");
-let pacijent2 = new Pacijent("Emilija", "Vlajic", "Sve sto moze da pojede", "nepoznato");
+//let pacijent1 = new Pacijent("Nemanja", "Kostic", "A", "Slepo crevo");
+//let pacijent2 = new Pacijent("Emilija", "Vlajic", "Sve sto moze da pojede", "nepoznato");
 
-let bolnica = new Bolnica(5, 10, 2);
+//let bolnica = new Bolnica(5, 10, 2);
 
-console.log(bolnica.dodajPacijenta(pacijent1));
-console.log(bolnica.dodajPacijenta(pacijent2));
-console.log(bolnica.dodajPacijenta(pacijent2));
-console.log(bolnica.dodajPacijenta(pacijent2));
-console.log(bolnica.dodajPacijenta(pacijent2));
-console.log(bolnica.dodajPacijenta(pacijent2));
+//console.log(bolnica.dodajPacijenta(pacijent1));
+//console.log(bolnica.dodajPacijenta(pacijent2));
+//console.log(bolnica.dodajPacijenta(pacijent2));
+//console.log(bolnica.dodajPacijenta(pacijent2));
+//console.log(bolnica.dodajPacijenta(pacijent2));
+//console.log(bolnica.dodajPacijenta(pacijent2));
 
-bolnica.Spratovi[0][0].Kreveti[0].Pacijent = pacijent1;
+//bolnica.Spratovi[0][0].Kreveti[0].Pacijent = pacijent1;
 
-let prikaz = new BolnicaView(bolnica);
+//let prikaz = new BolnicaView(bolnica);
 
-prikaz.crtajBolnicu(document.body);
 //prikaz.crtajBolnicu(document.body);
 //prikaz.crtajBolnicu(document.body);
+//prikaz.crtajBolnicu(document.body);
+
+// SERVER //
+
+fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
+    p.json().then(data => {
+        data.forEach(bolnice => {
+            const bolnica1 = new Bolnica(bolnice.brojSpratova, bolnice.brojSoba, bolnice.brojKrevetaPoSobi);
+            let prikaz = new BolnicaView(bolnica1);
+            prikaz.crtajBolnicu(document.body);
+        });
+    })
+});
 
