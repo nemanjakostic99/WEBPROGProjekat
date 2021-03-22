@@ -152,7 +152,7 @@ export class BolnicaView {
 
         const unosImenaPacijenta = document.createElement("input");
         unosImenaPacijenta.type = "text";
-        unosImenaPacijenta.value = pacijent.Ime;
+        unosImenaPacijenta.value = pacijent.Pacijent.Ime;
 
         imeProzor.appendChild(imePacijenta);
         imeProzor.appendChild(unosImenaPacijenta);
@@ -166,7 +166,7 @@ export class BolnicaView {
 
         const unosPrezimenaPacijenta = document.createElement("input");
         unosPrezimenaPacijenta.type = "text";
-        unosPrezimenaPacijenta.value = pacijent.Prezime;
+        unosPrezimenaPacijenta.value = pacijent.Pacijent.Prezime;
         
         prezimeProzor.appendChild(prezimePacijenta);
         prezimeProzor.appendChild(unosPrezimenaPacijenta);
@@ -180,7 +180,7 @@ export class BolnicaView {
 
         const unosDijetePacijenta = document.createElement("input");
         unosDijetePacijenta.type = "text";
-        unosDijetePacijenta.value = pacijent.Dijeta;
+        unosDijetePacijenta.value = pacijent.Pacijent.Dijeta;
         
         dijetaProzor.appendChild(dijetaPacijenta);
         dijetaProzor.appendChild(unosDijetePacijenta);
@@ -194,7 +194,7 @@ export class BolnicaView {
 
         const unosDijagnozePacijenta = document.createElement("input");
         unosDijagnozePacijenta.type = "text";
-        unosDijagnozePacijenta.value = pacijent.Dijagnoza;
+        unosDijagnozePacijenta.value = pacijent.Pacijent.Dijagnoza;
         
         dijagnozaProzor.appendChild(dijagnozaPacijenta);
         dijagnozaProzor.appendChild(unosDijagnozePacijenta);

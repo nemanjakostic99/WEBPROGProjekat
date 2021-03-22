@@ -23,7 +23,7 @@ namespace server.Controllers
          [HttpGet]
          public async Task<List<Bolnica>> PreuzmiBolnice()
          {
-             return await Context.Bolnice.Include(p => p.Spratovi).ToListAsync();
+             return await Context.Bolnice.Include(p => p.Spratovi).ThenInclude(s => s.Kreveti).ThenInclude(d => d.pacijent).ToListAsync();
          }
 
          [Route("UpisiBolnicu")]

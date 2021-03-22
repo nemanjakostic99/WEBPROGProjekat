@@ -30,7 +30,10 @@ namespace server.Migrations
                     Ime = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     Prezime = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     Dijeta = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Dijagnoza = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    Dijagnoza = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    BrojSprata = table.Column<int>(type: "int", nullable: false),
+                    BrojSobe = table.Column<int>(type: "int", nullable: false),
+                    BrojKreveta = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,14 +47,14 @@ namespace server.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BrojKreveta = table.Column<int>(type: "int", nullable: false),
-                    BolnicaID = table.Column<int>(type: "int", nullable: true)
+                    bolnicaID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sobe", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Sobe_Bolnice_BolnicaID",
-                        column: x => x.BolnicaID,
+                        name: "FK_Sobe_Bolnice_bolnicaID",
+                        column: x => x.bolnicaID,
                         principalTable: "Bolnice",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -65,7 +68,7 @@ namespace server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     pacijentID = table.Column<int>(type: "int", nullable: true),
                     Zauzet = table.Column<bool>(type: "bit", nullable: false),
-                    SobaID = table.Column<int>(type: "int", nullable: true)
+                    sobaID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,8 +80,8 @@ namespace server.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Kreveti_Sobe_SobaID",
-                        column: x => x.SobaID,
+                        name: "FK_Kreveti_Sobe_sobaID",
+                        column: x => x.sobaID,
                         principalTable: "Sobe",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -90,14 +93,14 @@ namespace server.Migrations
                 column: "pacijentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kreveti_SobaID",
+                name: "IX_Kreveti_sobaID",
                 table: "Kreveti",
-                column: "SobaID");
+                column: "sobaID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sobe_BolnicaID",
+                name: "IX_Sobe_bolnicaID",
                 table: "Sobe",
-                column: "BolnicaID");
+                column: "bolnicaID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

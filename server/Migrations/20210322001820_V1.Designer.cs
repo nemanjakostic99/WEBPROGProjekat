@@ -10,7 +10,7 @@ using server.Models;
 namespace server.Migrations
 {
     [DbContext(typeof(BolnicaContext))]
-    [Migration("20210318214721_V1")]
+    [Migration("20210322001820_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,10 +54,10 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("SobaID")
+                    b.Property<int?>("pacijentID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("pacijentID")
+                    b.Property<int?>("sobaID")
                         .HasColumnType("int");
 
                     b.Property<bool>("zauzet")
@@ -66,9 +66,9 @@ namespace server.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("SobaID");
-
                     b.HasIndex("pacijentID");
+
+                    b.HasIndex("sobaID");
 
                     b.ToTable("Kreveti");
                 });
@@ -80,6 +80,18 @@ namespace server.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrojKreveta")
+                        .HasColumnType("int")
+                        .HasColumnName("BrojKreveta");
+
+                    b.Property<int>("BrojSobe")
+                        .HasColumnType("int")
+                        .HasColumnName("BrojSobe");
+
+                    b.Property<int>("BrojSprata")
+                        .HasColumnType("int")
+                        .HasColumnName("BrojSprata");
 
                     b.Property<string>("Dijagnoza")
                         .HasMaxLength(255)
@@ -114,38 +126,42 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BolnicaID")
-                        .HasColumnType("int");
-
                     b.Property<int>("BrojKreveta")
                         .HasColumnType("int")
                         .HasColumnName("BrojKreveta");
 
+                    b.Property<int?>("bolnicaID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("BolnicaID");
+                    b.HasIndex("bolnicaID");
 
                     b.ToTable("Sobe");
                 });
 
             modelBuilder.Entity("server.Models.Krevet", b =>
                 {
-                    b.HasOne("server.Models.Soba", null)
-                        .WithMany("Kreveti")
-                        .HasForeignKey("SobaID");
-
                     b.HasOne("server.Models.Pacijent", "pacijent")
                         .WithMany()
                         .HasForeignKey("pacijentID");
 
+                    b.HasOne("server.Models.Soba", "soba")
+                        .WithMany("Kreveti")
+                        .HasForeignKey("sobaID");
+
                     b.Navigation("pacijent");
+
+                    b.Navigation("soba");
                 });
 
             modelBuilder.Entity("server.Models.Soba", b =>
                 {
-                    b.HasOne("server.Models.Bolnica", null)
+                    b.HasOne("server.Models.Bolnica", "bolnica")
                         .WithMany("Spratovi")
-                        .HasForeignKey("BolnicaID");
+                        .HasForeignKey("bolnicaID");
+
+                    b.Navigation("bolnica");
                 });
 
             modelBuilder.Entity("server.Models.Bolnica", b =>

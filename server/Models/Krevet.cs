@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace server.Models
 {
@@ -9,11 +10,15 @@ namespace server.Models
         [Key]
         [Column("ID")]
         public int ID { get; set; }
+        
         [Column("Pacijent")]
-        public virtual Pacijent pacijent { get; set; }
+        public Pacijent pacijent { get; set; }
+
         [Column("Zauzet")]
         public bool zauzet { get; set; }
 
+        [JsonIgnore]
+        public Soba soba { get; set; }
     }
 
 }
