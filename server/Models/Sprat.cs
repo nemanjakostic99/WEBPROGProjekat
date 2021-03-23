@@ -5,16 +5,17 @@ using System.Text.Json.Serialization;
 
 namespace server.Models
 {
-    [Table("Sobe")]
-    public class Soba
+    [Table("Spratovi")]
+    public class Sprat
     {
         [Key]
         [Column("ID")]
         public int ID { get; set; }
-        
-        public virtual List<Krevet> Kreveti { get; set; }
-        
+        public virtual List<Soba> sobe { get; set; }
+
         [JsonIgnore]
-        public Sprat sprat { get; set; }
+        public virtual Bolnica bolnica { get; set; }
+
     }
+
 }

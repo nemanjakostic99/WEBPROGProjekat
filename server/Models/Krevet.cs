@@ -11,6 +11,10 @@ namespace server.Models
         [Column("ID")]
         public int ID { get; set; }
         
+        // [ForeignKey("FK_Kreveti_Pacijenti_PacijentID")]
+        // [Column("PacijentID")]
+        // public int pacijentID { get; set; }
+
         [Column("Pacijent")]
         public Pacijent pacijent { get; set; }
 

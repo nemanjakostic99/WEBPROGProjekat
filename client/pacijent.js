@@ -1,7 +1,9 @@
 
 export class Pacijent{
 
-    constructor(ime, prezime, dijeta, dijagnoza){
+    constructor(id, ime, prezime, dijeta, dijagnoza){
+       
+        this.id = id;
         this.Ime = ime;
         this.Prezime = prezime;
         this.Dijeta = dijeta;

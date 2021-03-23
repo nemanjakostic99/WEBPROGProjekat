@@ -32,8 +32,9 @@ namespace server
             {
                 options.AddPolicy("CORS", builder =>
                 {
-                    builder.AllowAnyHeader()
+                    builder
                     .AllowAnyHeader()
+                    .AllowAnyMethod()
                     .WithOrigins(new string[]
                     {
                         "http://127.0.0.1:5500"

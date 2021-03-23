@@ -10,7 +10,7 @@ using server.Models;
 namespace server.Migrations
 {
     [DbContext(typeof(BolnicaContext))]
-    [Migration("20210322001820_V1")]
+    [Migration("20210323023435_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,18 +29,6 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrojKrevetaPoSobi")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojKrevetaPoSobi");
-
-                    b.Property<int>("BrojSoba")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojSoba");
-
-                    b.Property<int>("BrojSpratova")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojSpratova");
-
                     b.HasKey("ID");
 
                     b.ToTable("Bolnice");
@@ -54,9 +42,6 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("pacijentID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("sobaID")
                         .HasColumnType("int");
 
@@ -65,8 +50,6 @@ namespace server.Migrations
                         .HasColumnName("Zauzet");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("pacijentID");
 
                     b.HasIndex("sobaID");
 
@@ -80,18 +63,6 @@ namespace server.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrojKreveta")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojKreveta");
-
-                    b.Property<int>("BrojSobe")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojSobe");
-
-                    b.Property<int>("BrojSprata")
-                        .HasColumnType("int")
-                        .HasColumnName("BrojSprata");
 
                     b.Property<string>("Dijagnoza")
                         .HasMaxLength(255)
@@ -108,12 +79,19 @@ namespace server.Migrations
                         .HasColumnType("nvarchar(25)")
                         .HasColumnName("Ime");
 
+                    b.Property<int?>("KrevetId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Prezime")
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)")
                         .HasColumnName("Prezime");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("KrevetId")
+                        .IsUnique()
+                        .HasFilter("[KrevetId] IS NOT NULL");
 
                     b.ToTable("Pacijenti");
                 });
@@ -126,9 +104,23 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrojKreveta")
+                    b.Property<int?>("spratID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("spratID");
+
+                    b.ToTable("Sobe");
+                });
+
+            modelBuilder.Entity("server.Models.Sprat", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("BrojKreveta");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("bolnicaID")
                         .HasColumnType("int");
@@ -137,28 +129,40 @@ namespace server.Migrations
 
                     b.HasIndex("bolnicaID");
 
-                    b.ToTable("Sobe");
+                    b.ToTable("Spratovi");
                 });
 
             modelBuilder.Entity("server.Models.Krevet", b =>
                 {
-                    b.HasOne("server.Models.Pacijent", "pacijent")
-                        .WithMany()
-                        .HasForeignKey("pacijentID");
-
                     b.HasOne("server.Models.Soba", "soba")
                         .WithMany("Kreveti")
                         .HasForeignKey("sobaID");
 
-                    b.Navigation("pacijent");
-
                     b.Navigation("soba");
+                });
+
+            modelBuilder.Entity("server.Models.Pacijent", b =>
+                {
+                    b.HasOne("server.Models.Krevet", "krevet")
+                        .WithOne("pacijent")
+                        .HasForeignKey("server.Models.Pacijent", "KrevetId");
+
+                    b.Navigation("krevet");
                 });
 
             modelBuilder.Entity("server.Models.Soba", b =>
                 {
+                    b.HasOne("server.Models.Sprat", "sprat")
+                        .WithMany("sobe")
+                        .HasForeignKey("spratID");
+
+                    b.Navigation("sprat");
+                });
+
+            modelBuilder.Entity("server.Models.Sprat", b =>
+                {
                     b.HasOne("server.Models.Bolnica", "bolnica")
-                        .WithMany("Spratovi")
+                        .WithMany("spratovi")
                         .HasForeignKey("bolnicaID");
 
                     b.Navigation("bolnica");
@@ -166,12 +170,22 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.Bolnica", b =>
                 {
-                    b.Navigation("Spratovi");
+                    b.Navigation("spratovi");
+                });
+
+            modelBuilder.Entity("server.Models.Krevet", b =>
+                {
+                    b.Navigation("pacijent");
                 });
 
             modelBuilder.Entity("server.Models.Soba", b =>
                 {
                     b.Navigation("Kreveti");
+                });
+
+            modelBuilder.Entity("server.Models.Sprat", b =>
+                {
+                    b.Navigation("sobe");
                 });
 #pragma warning restore 612, 618
         }

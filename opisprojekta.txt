@@ -1,7 +1,0 @@
-Organizacija pacijenata u bolnici
-
-Moj projekat ce resavati problem organizacije pacijenata na nivou jedne bolnice.
-
--Svaki pacijent za vreme boravka u bolnici ima svoju dijagnozu, terapiju i dijetu.
-
--Svaka soba u bolnici ima odredjen broj kreveta i neke dodatke (wc, televizor ili klimu)

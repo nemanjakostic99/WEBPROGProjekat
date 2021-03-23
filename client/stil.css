@@ -1,9 +1,14 @@
+.htmlpozadina {
+    min-height: 100%;
+}
 .pozadina{
     background-color:white;
     display:flex;
     align-items: center;
     flex-direction: column;
     flex-grow: 1;
+    min-height: 100%;
+
 }
 .img 
 {
@@ -46,7 +51,7 @@
     flex-direction: column;
     height: auto;
     width: auto;
-    flex-grow: 2;
+    flex-grow: 1;
 }
 .sobadugme {
     
@@ -61,13 +66,13 @@
     flex-direction: column;
     margin: 5px;
     justify-content: space-around;
-    flex-grow: 1;
+    flex-grow: 0;
 
 }
 .DivZaMatricuSoba {
     display: flex;
     height: auto;
-    width: auto;
+    width: 50%;
     flex-direction: row;
     flex-grow: 1;
     justify-content: center;
@@ -113,7 +118,7 @@
     align-content: space-between;
 }
 .zabrisanje {
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 .zabrisanje1 {
     flex-wrap: wrap;

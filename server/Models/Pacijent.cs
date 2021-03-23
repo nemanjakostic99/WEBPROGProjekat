@@ -28,13 +28,8 @@ namespace server.Models
         [MaxLength(255)]
         public String Dijagnoza { get; set; }
 
-        [Column("BrojSprata")]
-        public int BrojSprata { get; set; }
-
-        [Column("BrojSobe")]
-        public int BrojSobe { get; set; }
-
-        [Column("BrojKreveta")]
-        public int BrojKreveta { get; set; }  
+        [JsonIgnore]
+        [ForeignKey("KrevetId")]
+        public Krevet krevet {get; set;} 
     }
 }
