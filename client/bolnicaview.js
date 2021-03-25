@@ -7,35 +7,37 @@ export class BolnicaView {
         this.hospital = bolnica;
     }
     crtajBolnicu(host){
-        let brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje"));
-        for(let i; i<brisanje.length; i++)
-        brisanje[i].remove();
-        brisanje.map(function(el){
-           return el.remove();
-        });
-        brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje1"));
-        for(let i; i<brisanje.length; i++)
-        brisanje[i].remove();
-        brisanje.map(function(el){
-           return el.remove();
-        });
-        brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramSobe"));
-        brisanje.map(function(el){
-           return el.remove();
-        });
-        brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramPacijenta"));
-        brisanje.map(function(el){
-           return el.remove();
-        });
+        // let brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje"));
+        // for(let i; i<brisanje.length; i++)
+        // brisanje[i].remove();
+        // brisanje.map(function(el){
+        //    return el.remove();
+        // });
+        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje1"));
+        // for(let i; i<brisanje.length; i++)
+        // brisanje[i].remove();
+        // brisanje.map(function(el){
+        //    return el.remove();
+        // });
+        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramSobe"));
+        // brisanje.map(function(el){
+        //    return el.remove();
+        // });
+        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramPacijenta"));
+        // brisanje.map(function(el){
+        //    return el.remove();
+        // });
         
         // MATRICA SOBA //
         const legenda = document.createElement("div");
         legenda.innerHTML = "Зелена-постоји слободно место, Црвена-нема слободног места";
         legenda.classList.add("zabrisanje");
+        legenda.classList.add("divText");
         host.appendChild(legenda);
 
         const legenda2 = document.createElement("div");
         legenda2.classList.add("zabrisanje");
+        legenda2.classList.add("divText");
         legenda2.innerHTML = "Број слободних места:" + this.hospital.brojSlobodnihMesta() + "  Број заузетих места:" + this.hospital.brojZauzetihMesta();
         legenda2.style.fontWeight = "bold";
         host.appendChild(legenda2);
@@ -228,7 +230,7 @@ export class BolnicaView {
             pacijent.pacijent.Dijagnoza = unosDijagnozePacijenta.value;
 
             
-            fetch("https://localhost:5001/Bolnica/IzmeniPacijenta2/"+pacijent.pacijent.id,{
+            fetch("https://localhost:5001/Bolnica/IzmeniPacijenta2/"+ pacijent.pacijent.id,{
             method:"PUT",
             headers:{
             "Content-Type":"application/json"

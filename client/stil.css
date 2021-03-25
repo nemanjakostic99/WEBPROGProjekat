@@ -1,5 +1,7 @@
 .htmlpozadina {
     min-height: 100%;
+    display: flex;
+    align-items: column;
 }
 .pozadina{
     background-color:white;
@@ -9,6 +11,16 @@
     flex-grow: 1;
     min-height: 100%;
 
+}
+.divBolnica{
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    align-items: center;
+}
+.divText{
+    display: flex;
+    font-display: flex;
 }
 .img 
 {

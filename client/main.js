@@ -61,6 +61,8 @@ fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
     p.json().then(data => {
         data.forEach(bolnice => {
             const bolnica1 = new Bolnica(bolnice.id);
+            
+
             bolnice.spratovi.forEach(s => {
                 const sprat = new Sprat(s.id);
                 bolnica1.dodajSprat(sprat);
@@ -74,17 +76,25 @@ fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
                         soba.dodajKrevet(krevet);
                     })
                 })
+            });
+            const bolnicaPrikaz = new BolnicaView(bolnica1);
 
-            })
-            console.log(bolnica1);
-            let prikaz = new BolnicaView(bolnica1);
-            prikaz.crtajBolnicu(document.body);
+            const divBolnice = document.createElement("div");
+            divBolnice.classList.add("divBolnica");
+
+            bolnicaPrikaz.crtajBolnicu(divBolnice);
+
+            document.body.appendChild(divBolnice);
+            
+        });
+ 
         });
 
-            
-            
-        });
     });
+
+        
+
+
 
 
 // function PosaljiBolnicu(bolnica){

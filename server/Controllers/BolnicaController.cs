@@ -102,7 +102,52 @@ namespace server.Controllers
              Context.Remove(pacijent);
              await Context.SaveChangesAsync();
          }
+         [Route("IzbrisiKrevet/{id}")]
+         [HttpDelete]
+         public async Task IzbrisiKrevet(int id)
+         {
+             var krevet = await Context.Kreveti.FindAsync(id);
+             var pacijentUKrevetu = await Context.Pacijenti.FindAsync(krevet.pacijent.ID);
+             Context.Remove(pacijentUKrevetu);
+             Context.Remove(krevet);
+         }
 
+         [Route("IzbrisiSobu/{id}")]
+         [HttpDelete]
+         public async Task IzbrisiSobu(int id)
+         {
+            var nizKreveta=Context.Kreveti.Where(p=>p.soba.ID == id);
+            await nizKreveta.ForEachAsync(s=>{ 
+                var pacijentUKrevetu = Context.Pacijenti.FindAsync(s.pacijent.ID);
+                Context.Remove(pacijentUKrevetu);
+                Context.Remove(s); 
+            });
+            var soba = await Context.Sobe.FindAsync(id);
+            Context.Remove(soba);
+         }
+
+         [Route("IzbrisiSprat/{id}")]
+         [HttpDelete]
+         public async Task IzbrisiSprat(int id)
+         {
+             var sprat = await Context.Spratovi.FindAsync(id);
+             
+             var nizSoba = Context.Sobe.Where(s=>s.sprat.ID==id);
+             
+             await nizSoba.ForEachAsync(s=>{
+                var nizKreveta=Context.Kreveti.Where(p=>p.soba.ID == s.ID);
+                nizKreveta.ForEachAsync(t=>{ 
+                var pacijentUKrevetu = Context.Pacijenti.FindAsync(t.pacijent.ID);
+                if(pacijentUKrevetu!=null)
+                Context.Remove(pacijentUKrevetu);
+                Context.Remove(t); 
+            });
+                Context.Remove(s);
+            });
+                Context.Remove(sprat);
+         }
+
+    
 
          [Route("IzbrisiBolnicu/{id}")]
          [HttpDelete]
