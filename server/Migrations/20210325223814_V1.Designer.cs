@@ -10,7 +10,7 @@ using server.Models;
 namespace server.Migrations
 {
     [DbContext(typeof(BolnicaContext))]
-    [Migration("20210323023435_V1")]
+    [Migration("20210325223814_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,10 @@ namespace server.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Ime");
 
                     b.HasKey("ID");
 

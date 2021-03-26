@@ -5943,28 +5943,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nemanja\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\neman\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nemanja\\Documents\\WebProgramiranjeProjekat\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\neman\\Documents\\GitHub\\WEBPROGProjekat\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\Nemanja\\Documents\\WebProgramiranjeProjekat\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\Nemanja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nemanja\\Documents\\WebProgramiranjeProjekat\\server\\obj\\",
+      "projectPath": "C:\\Users\\neman\\Documents\\GitHub\\WEBPROGProjekat\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\neman\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\neman\\Documents\\GitHub\\WEBPROGProjekat\\server\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Nemanja\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\neman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

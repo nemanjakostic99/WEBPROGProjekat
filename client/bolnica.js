@@ -2,8 +2,9 @@ import {Soba} from "./soba.js"
 
 export class Bolnica{
 
-    constructor(id){
+    constructor(id, ime){
 
+        this.ime = ime;
         this.id = id;
         this.spratovi = [];
 

@@ -5,6 +5,24 @@ import { Sprat } from "./sprat.js";
 import { Soba } from "./soba.js";
 import { Krevet } from "./krevet.js";
 
+let logo = document.createElement("div");
+logo.classList.add("logo");
+
+let slika = document.createElement("img");
+slika.classList.add("img");
+slika.src = "redcross.png";
+slika.alt = "crvenikrst";
+logo.appendChild(slika);
+
+slika = document.createElement("div");
+slika.innerHTML = "Распоређивање пацијената";
+slika.classList.add("natpis");
+logo.appendChild(slika);
+
+document.body.appendChild(logo);
+
+
+
 let razmak = document.createElement("div");
 razmak.style.height = "15px";
 document.body.appendChild(razmak);
@@ -60,9 +78,7 @@ document.body.appendChild(razmak);
 fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
     p.json().then(data => {
         data.forEach(bolnice => {
-            const bolnica1 = new Bolnica(bolnice.id);
-            
-
+            const bolnica1 = new Bolnica(bolnice.id, bolnice.ime);
             bolnice.spratovi.forEach(s => {
                 const sprat = new Sprat(s.id);
                 bolnica1.dodajSprat(sprat);

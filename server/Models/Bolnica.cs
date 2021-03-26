@@ -10,6 +10,9 @@ namespace server.Models
         [Key]
         [Column("ID")]
         public int ID { get; set; }
+
+        [Column("Ime")]
+        public string Ime { get; set; }
         
         public virtual List<Sprat> spratovi { get; set; }
 

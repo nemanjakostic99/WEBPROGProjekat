@@ -7,29 +7,27 @@ export class BolnicaView {
         this.hospital = bolnica;
     }
     crtajBolnicu(host){
-        // let brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje"));
-        // for(let i; i<brisanje.length; i++)
-        // brisanje[i].remove();
-        // brisanje.map(function(el){
-        //    return el.remove();
-        // });
-        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("zabrisanje1"));
-        // for(let i; i<brisanje.length; i++)
-        // brisanje[i].remove();
-        // brisanje.map(function(el){
-        //    return el.remove();
-        // });
-        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramSobe"));
-        // brisanje.map(function(el){
-        //    return el.remove();
-        // });
-        // brisanje = Array.prototype.slice.call(document.getElementsByClassName("dijagramPacijenta"));
-        // brisanje.map(function(el){
-        //    return el.remove();
-        // });
+        let brisanje = host.querySelectorAll(".zabrisanje"); 
+        brisanje.forEach(e => e.remove());
+        
+        brisanje = host.querySelectorAll(".zabrisanje1"); 
+        brisanje.forEach(e => e.remove());
+        
+        brisanje = host.querySelectorAll(".dijagramSobe"); 
+        brisanje.forEach(e => e.remove());
+        
+        brisanje = host.querySelectorAll(".dijagramPacijenta"); 
+        brisanje.forEach(e => e.remove());
         
         // MATRICA SOBA //
-        const legenda = document.createElement("div");
+        let legenda = document.createElement("div");
+        legenda.innerHTML = this.hospital.ime;
+        legenda.classList.add("zabrisanje");
+        legenda.classList.add("divText");
+        legenda.classList.add("imeBolnice");
+        host.appendChild(legenda);
+
+        legenda = document.createElement("div");
         legenda.innerHTML = "Зелена-постоји слободно место, Црвена-нема слободног места";
         legenda.classList.add("zabrisanje");
         legenda.classList.add("divText");
@@ -48,6 +46,7 @@ export class BolnicaView {
         const divSpratovi = document.createElement("div");
         divSpratovi.className = "divSpratovi";
         divSpratovi.classList.add("zabrisanje");
+        divSpratovi.classList.add("divText");
       
         for(let i=0; i<this.hospital.spratovi.length; i++)
         {
@@ -67,6 +66,7 @@ export class BolnicaView {
                 p.sobe.forEach(l => {
                     let dugmeSoba = document.createElement("button");
                     dugmeSoba.className = "sobadugme";
+                    dugmeSoba.classList.add("divText");
 
                     let pom=BrojSobe+1;
                     let pom2=BrojSpratova;
@@ -100,19 +100,15 @@ export class BolnicaView {
     }
     crtajDijagramSobe(host, soba, width, brSprata, brSobe){
     
-        let brisanje = document.getElementsByClassName("dijagramSobe");
-        //let brisanje = document.getElementById(1);
+        let brisanje = host.querySelectorAll(".dijagramSobe"); 
+        brisanje.forEach(e => e.remove());
 
-        if(brisanje.length !== 0)
-        //if(brisanje !== null)
-        brisanje[0].remove();
-
-        brisanje = document.getElementsByClassName("dijagramPacijenta");
-        if(brisanje.length !== 0)
-            brisanje[0].remove();
+        brisanje = host.querySelectorAll(".dijagramPacijenta"); 
+        brisanje.forEach(e => e.remove());
 
         const glavniProzor = document.createElement("div");
         glavniProzor.className = "dijagramSobe";
+        glavniProzor.classList.add("divText");
         
         glavniProzor.innerHTML = "спрат:"+ (brSprata+1) + "  соба:" + (brSobe);
         glavniProzor.style.width = width;
@@ -121,6 +117,7 @@ export class BolnicaView {
         for(let i=0; i < soba.vratiBrojKreveta(); i++){
             const dugmeKreveta = document.createElement("button");
             dugmeKreveta.className = "krevetDugme";
+            dugmeKreveta.classList.add("divText");
             dugmeKreveta.style.fontWeight = "bold";
             dugmeKreveta.onclick=(ev)=>{
                 if(soba.kreveti[i].slobodan())
@@ -136,13 +133,11 @@ export class BolnicaView {
     }
     crtajDijagramPacijenta(host, pacijent){
 
-        let brisanje = document.getElementsByClassName("dijagramPacijenta");
-        if(brisanje.length !== 0)
-            brisanje[0].remove();
+        let brisanje = host.querySelectorAll(".dijagramPacijenta"); 
+        brisanje.forEach(e => e.remove());
 
-        brisanje = document.getElementsByClassName("zabrisanje1");
-        if(brisanje.length !== 0)
-            brisanje[0].remove();
+        brisanje = host.querySelectorAll(".zabrisanje1"); 
+        brisanje.forEach(e => e.remove());
 
         let razmak = document.createElement("div");
         razmak.classList.add("zabrisanje1");
@@ -156,6 +151,7 @@ export class BolnicaView {
         imeProzor.className = "divIme";
 
         const imePacijenta = document.createElement("div");
+        imePacijenta.classList.add("divText");
         imePacijenta.innerHTML = "Име:";
 
         const unosImenaPacijenta = document.createElement("input");
@@ -171,6 +167,7 @@ export class BolnicaView {
 
         const prezimePacijenta = document.createElement("div");
         prezimePacijenta.innerHTML = "Презиме:";
+        prezimePacijenta.classList.add("divText");
 
         const unosPrezimenaPacijenta = document.createElement("input");
         unosPrezimenaPacijenta.type = "text";
@@ -185,6 +182,7 @@ export class BolnicaView {
 
         const dijetaPacijenta = document.createElement("div");
         dijetaPacijenta.innerHTML = "Дијета:";
+        dijetaPacijenta.classList.add("divText");
 
         const unosDijetePacijenta = document.createElement("input");
         unosDijetePacijenta.type = "text";
@@ -199,6 +197,7 @@ export class BolnicaView {
 
         const dijagnozaPacijenta = document.createElement("div");
         dijagnozaPacijenta.innerHTML = "Дијагноза:";
+        dijagnozaPacijenta.classList.add("divText");
 
         const unosDijagnozePacijenta = document.createElement("input");
         unosDijagnozePacijenta.type = "text";
@@ -210,6 +209,7 @@ export class BolnicaView {
 
         const dugmePotvrdi = document.createElement("button");
         dugmePotvrdi.innerHTML = "Потврди";
+        //dugmePotvrdi.classList.add("divText");
         dugmePotvrdi.style.backgroundColor = "lightgreen";
         dugmePotvrdi.onclick=(ev)=>{
             if(!allLetter(unosImenaPacijenta.value))
@@ -250,6 +250,7 @@ export class BolnicaView {
 
         const dugmeOslobodi = document.createElement("button");
         dugmeOslobodi.innerHTML = "Ослободи";
+        //dugmeOslobodi.classList.add("divText");
         dugmeOslobodi.style.backgroundColor = "red";
         dugmeOslobodi.onclick=(ev)=>{
             console.log(pacijent.pacijent);
@@ -266,13 +267,13 @@ export class BolnicaView {
     }
 
     crtajDijagramNovogPacijenta(host, krevet) {
-        let brisanje = document.getElementsByClassName("dijagramPacijenta");
-        if(brisanje.length !== 0)
-            brisanje[0].remove();
+        
+        let brisanje = host.querySelectorAll(".dijagramPacijenta"); 
+        brisanje.forEach(e => e.remove());
 
-        brisanje = document.getElementsByClassName("zabrisanje1");
-        if(brisanje.length !== 0)
-            brisanje[0].remove();
+        brisanje = host.querySelectorAll(".zabrisanje1"); 
+        brisanje.forEach(e => e.remove());
+        
         let razmak = document.createElement("div");
         razmak.classList.add("zabrisanje1");
         razmak.style.height = "15px";

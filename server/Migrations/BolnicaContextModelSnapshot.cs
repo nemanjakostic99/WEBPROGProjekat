@@ -27,6 +27,10 @@ namespace server.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Ime");
+
                     b.HasKey("ID");
 
                     b.ToTable("Bolnice");
