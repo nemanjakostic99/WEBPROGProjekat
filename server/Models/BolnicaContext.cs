@@ -20,7 +20,11 @@ namespace server.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Bolnica>().HasMany<Soba>().WithOne(p => p.bolnica).OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Bolnica>().HasMany<Sprat>().WithOne(p => p.bolnica).OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Sprat>().HasMany<Soba>().WithOne(p => p.sprat).OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Soba>().HasMany<Krevet>().WithOne(p => p.soba).OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<Krevet>().HasOne<Pacijent>().WithOne(p => p.krevet).OnDelete(DeleteBehavior.Cascade);
+            
 
             // modelBuilder.Entity<Krevet>().HasOne(e => e.pacijent)
             //     .WithOne(e => e.krevet)
