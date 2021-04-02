@@ -106,9 +106,7 @@ namespace server.Controllers
          [HttpDelete]
          public async Task IzbrisiKrevet(int id)
          {
-             var krevet = await Context.Kreveti.FindAsync(id);
-            //  var pacijentUKrevetu = await Context.Pacijenti.FindAsync(krevet.pacijent.ID);
-            //  Context.Remove(pacijentUKrevetu);
+             var krevet = Context.Kreveti.Include(p => p.pacijent).Where(p => p.ID == id).FirstOrDefault();
              Context.Remove(krevet);
              await Context.SaveChangesAsync();
          }
@@ -117,14 +115,7 @@ namespace server.Controllers
          [HttpDelete]
          public async Task IzbrisiSobu(int id)
          {
-            // var nizKreveta=Context.Kreveti.Where(p=>p.soba.ID == id);
-            // await nizKreveta.ForEachAsync(s=>{ 
-            //     var pacijentUKrevetu = Context.Pacijenti.FindAsync(s.pacijent.ID);
-            //     Context.Remove(pacijentUKrevetu);
-            //     Context.Remove(s); 
-            // });
-            // var soba = await Context.Sobe.FindAsync(id);
-            var soba = await Context.Sobe.FindAsync(id);
+            var soba = Context.Sobe.Include(p => p.Kreveti).ThenInclude(p => p.pacijent).Where(p => p.ID == id).FirstOrDefault();
             Context.Remove(soba);
             await Context.SaveChangesAsync();
          }
@@ -133,21 +124,7 @@ namespace server.Controllers
          [HttpDelete]
          public async Task IzbrisiSprat(int id)
          {
-             var sprat = await Context.Spratovi.FindAsync(id);
-             
-            //  var nizSoba = Context.Sobe.Where(s=>s.sprat.ID==id);
-             
-            //  await nizSoba.ForEachAsync(s=>{
-            //     var nizKreveta=Context.Kreveti.Where(p=>p.soba.ID == s.ID);
-            //     nizKreveta.ForEachAsync(t=>{ 
-            //     var pacijentUKrevetu = Context.Pacijenti.FindAsync(t.pacijent.ID);
-            //     if(pacijentUKrevetu!=null)
-            //     Context.Remove(pacijentUKrevetu);
-            //     Context.Remove(t); 
-            // });
-            //     Context.Remove(s);
-            // });
-            //     Context.Remove(sprat);
+            var sprat = Context.Spratovi.Include(p => p.sobe).ThenInclude(p => p.Kreveti).ThenInclude(p => p.pacijent).Where(p => p.ID == id).FirstOrDefault();
             Context.Remove(sprat);
             await Context.SaveChangesAsync();
          }
@@ -159,73 +136,6 @@ namespace server.Controllers
          public async Task IzbrisiBolnicu(int id)
          {
              var bolnica = Context.Bolnice.Include(p => p.spratovi).ThenInclude(p => p.sobe).ThenInclude(p => p.Kreveti).ThenInclude(p => p.pacijent).Where(p => p.ID == id).FirstOrDefault();
-
-            //  List<int> nizSpratovaID = new List<int>();
-            //  List<int> nizSobaID = new List<int>();
-            //  List<int> nizKrevetaID = new List<int>();
-            //  List<int> nizPacijenataID = new List<int>();
-             
-            //  var nizSpratova=Context.Spratovi.Where(p => p.bolnica.ID == id);
-
-            //  await nizSpratova.ForEachAsync(p => nizSpratovaID.Add(p.ID));
-
-            //  nizSpratovaID.ForEach(async p => {
-            //      var nizSoba = Context.Sobe.Where(s => s.sprat.ID == p);
-            //      await nizSoba.ForEachAsync(s => nizSobaID.Add(s.ID));
-            //  });
-
-            //  nizSobaID.ForEach(async p => {
-            //      var nizKreveta = Context.Kreveti.Where(s => s.soba.ID == p);
-            //      await nizKreveta.ForEachAsync(s => nizKrevetaID.Add(s.ID));
-            //  });
-
-            //  nizKrevetaID.ForEach(async p => {
-            //      var nizPacijenata = Context.Pacijenti.Where(s => s.krevet.ID == p);
-            //      await nizPacijenata.ForEachAsync(s => nizKrevetaID.Add(s.ID));
-            //  });
-
-            //  nizPacijenataID.ForEach(async p => {
-            //      var pacijent = await Context.Pacijenti.FindAsync(p);
-            //      Context.Remove(pacijent);
-            //  });
-            //  await Context.SaveChangesAsync();
-
-            //  nizKrevetaID.ForEach(async p => {
-            //      var krevet = await Context.Kreveti.FindAsync(p);
-            //      Context.Remove(krevet);
-            //  });
-            //  await Context.SaveChangesAsync();
-
-            //  nizSobaID.ForEach(async p => {
-            //      var soba = await Context.Sobe.FindAsync(p);
-            //      Context.Remove(soba);
-            //  });
-            //  await Context.SaveChangesAsync();
-
-            //  nizSpratovaID.ForEach(async p => {
-            //      var sprat = await Context.Spratovi.FindAsync(p);
-            //      Context.Remove(sprat);
-            //  });
-            //  await Context.SaveChangesAsync();
-             
-            //  Context.Remove(bolnica);
-
-
-            // //  await nizSpratova.ForEachAsync(p => {
-            // //      nizSpratovaID.Add(p.ID);
-            // //      var nizSoba=Context.Sobe.Where(s => s.sprat.ID == p.ID);
-            // //      nizSoba.ForEachAsync(t => {
-            // //          nizSobaID.Add(t.ID);
-            // //          var nizKreveta=Context.Kreveti.Where(k => k.soba.ID == t.ID);
-            // //          nizKreveta.ForEachAsync(nk => {
-            // //              nizKrevetaID.Add(nk.ID);
-            // //              var nizPacijenata=Context.Pacijenti.Where(pacijent => pacijent.krevet.ID == nk.ID);
-            // //              nizPacijenata.ForEachAsync(np => nizPacijenataID.Add(np.ID));
-            // //          });
-            // //      });
-            // //  });
-             
-
              Context.Remove(bolnica);
              await Context.SaveChangesAsync();
          }

@@ -5,6 +5,9 @@ import { Sprat } from "./sprat.js";
 import { Soba } from "./soba.js";
 import { Krevet } from "./krevet.js";
 
+const pozadina = document.createElement("div");
+pozadina.classList.add("pozadina");
+
 let logo = document.createElement("div");
 logo.classList.add("logo");
 
@@ -19,16 +22,56 @@ slika.innerHTML = "Распоређивање пацијената";
 slika.classList.add("natpis");
 logo.appendChild(slika);
 
-document.body.appendChild(logo);
+pozadina.appendChild(logo);
 
 
 
 let razmak = document.createElement("div");
-razmak.style.height = "15px";
-document.body.appendChild(razmak);
+razmak.style.height = "20px";
+pozadina.appendChild(razmak);
 
 
-// let bolnica = new Bolnica(1);
+
+
+// SERVER //
+
+
+fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
+    p.json().then(data => {
+        data.forEach(bolnice => {
+            const bolnica1 = new Bolnica(bolnice.id, bolnice.ime);
+            bolnice.spratovi.forEach(s => {
+                const sprat = new Sprat(s.id);
+                bolnica1.dodajSprat(sprat);
+                s.sobe.forEach(a => {
+                    const soba = new Soba(a.id);
+                    sprat.dodajSobu(soba);
+                    a.kreveti.forEach(l => {
+                        const krevet = new Krevet(l.id);
+                        if(l.pacijent != null)
+                            krevet.smestiUKrevet(new Pacijent(l.pacijent.id, l.pacijent.ime, l.pacijent.prezime, l.pacijent.dijeta, l.pacijent.dijagnoza));
+                        soba.dodajKrevet(krevet);
+                    })
+                })
+            });
+            const bolnicaPrikaz = new BolnicaView(bolnica1);
+
+            const divBolnice = document.createElement("div");
+            divBolnice.classList.add("divBolnica");
+
+            bolnicaPrikaz.crtajBolnicu(divBolnice);
+
+            pozadina.appendChild(divBolnice);
+            
+        });
+ 
+        });
+
+    });
+
+    document.body.appendChild(pozadina);
+
+    // let bolnica = new Bolnica(1);
 // let sprat = new Sprat(1);
 // let soba = new Soba(1);
 // let krevet = new Krevet(1);
@@ -72,43 +115,6 @@ document.body.appendChild(razmak);
 //prikaz.crtajBolnicu(document.body);
 //prikaz.crtajBolnicu(document.body);
 //prikaz.crtajBolnicu(document.body);
-
-// SERVER //
-
-fetch("https://localhost:5001/Bolnica/PreuzmiBolnice").then(p => {
-    p.json().then(data => {
-        data.forEach(bolnice => {
-            const bolnica1 = new Bolnica(bolnice.id, bolnice.ime);
-            bolnice.spratovi.forEach(s => {
-                const sprat = new Sprat(s.id);
-                bolnica1.dodajSprat(sprat);
-                s.sobe.forEach(a => {
-                    const soba = new Soba(a.id);
-                    sprat.dodajSobu(soba);
-                    a.kreveti.forEach(l => {
-                        const krevet = new Krevet(l.id);
-                        if(l.pacijent != null)
-                            krevet.smestiUKrevet(new Pacijent(l.pacijent.id, l.pacijent.ime, l.pacijent.prezime, l.pacijent.dijeta, l.pacijent.dijagnoza));
-                        soba.dodajKrevet(krevet);
-                    })
-                })
-            });
-            const bolnicaPrikaz = new BolnicaView(bolnica1);
-
-            const divBolnice = document.createElement("div");
-            divBolnice.classList.add("divBolnica");
-
-            bolnicaPrikaz.crtajBolnicu(divBolnice);
-
-            document.body.appendChild(divBolnice);
-            
-        });
- 
-        });
-
-    });
-
-        
 
 
 

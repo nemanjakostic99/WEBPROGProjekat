@@ -13,19 +13,22 @@
     flex-direction: column;
     flex-grow: 1;
     min-height: 100%;
+    min-width: 90%;
 
 }
 .divBolnica{
     display: flex;
     flex-direction: column;
     min-width: 100%;
+    min-height: auto;
     align-items: center;
 }
 .divText{
     display: flex;
     font-display: flex;
     flex-wrap: wrap;
-    font-size: 1.5vw;
+    /* font-size: 1.5vw; */
+    font-size: 20px;
 }
 .img 
 {
@@ -40,7 +43,7 @@
 .natpis 
 {
     background-color: transparent;
-    font-size: 2vw;
+    font-size: 30px;
     font-style: bold;
     display:flex;
     align-content: center;
@@ -91,7 +94,7 @@
 .DivZaMatricuSoba {
     display: flex;
     height: auto;
-    width: 50%;
+    width: 90%;
     flex-direction: row;
     flex-grow: 1;
     justify-content: center;
